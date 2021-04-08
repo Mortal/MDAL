@@ -6,12 +6,12 @@ FIND_PACKAGE(GTest)
 
 IF (NOT GTEST_FOUND)
     # Download and unpack googletest at configure time
-    FILE(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download")
-    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/GTestCMakeLists.in" "${CMAKE_BINARY_DIR}/googletest-download/CMakeLists.txt")
+    FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/../googletest-download")
+    CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/GTestCMakeLists.in" "${CMAKE_CURRENT_BINARY_DIR}/../googletest-download/CMakeLists.txt")
     EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+	    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/../googletest-download" )
     EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
-        WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googletest-download" )
+	    WORKING_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/../googletest-download" )
 
     # Prevent GoogleTest from overriding our compiler/linker options
     # when building with Visual Studio
@@ -20,8 +20,8 @@ IF (NOT GTEST_FOUND)
     # Add googletest directly to our build. This adds
     # the following targets: gtest, gtest_main, gmock
     # and gmock_main
-    ADD_SUBDIRECTORY("${CMAKE_BINARY_DIR}/googletest-src"
-                     "${CMAKE_BINARY_DIR}/googletest-build"
+    ADD_SUBDIRECTORY("${CMAKE_CURRENT_BINARY_DIR}/../googletest-src"
+	    "${CMAKE_CURRENT_BINARY_DIR}/../googletest-build"
                      EXCLUDE_FROM_ALL)
 
     INCLUDE_DIRECTORIES("${gtest_SOURCE_DIR}/include"
@@ -37,9 +37,9 @@ ENDIF(NOT GTEST_FOUND)
 #########################################################################
 SET(TESTDATA_DIR "${CMAKE_CURRENT_SOURCE_DIR}/data")
 ADD_DEFINITIONS(-DTESTDATA="${TESTDATA_DIR}")
-ADD_DEFINITIONS(-DDRIVERS_PATH="${CMAKE_BINARY_DIR}/external_drivers")
+ADD_DEFINITIONS(-DDRIVERS_PATH="${CMAKE_CURRENT_BINARY_DIR}/../external_drivers")
 ADD_LIBRARY(mdaltestutils OBJECT mdal_testutils.hpp mdal_testutils.cpp )
-INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/mdal/api)
+INCLUDE_DIRECTORIES(${CMAKE_CURRENT_SOURCE_DIR}/../mdal/api)
 
 #########################################################################
 #########################################################################
@@ -47,8 +47,8 @@ INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/mdal/api)
 INCLUDE_DIRECTORIES(  
   ${CMAKE_CURRENT_SOURCE_DIR}
   ${CMAKE_CURRENT_BINARY_DIR}
-  ${CMAKE_BINARY_DIR}/mdal
-  ${CMAKE_SOURCE_DIR}/mdal
+  ${CMAKE_CURRENT_SOURCE_DIR}/../mdal
+  ${CMAKE_CURRENT_BINARY_DIR}/../mdal
 )
 
 MACRO (ADD_MDAL_TEST TESTSRC)

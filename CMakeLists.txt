@@ -15,7 +15,7 @@ SET(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
 
 #############################################################
 # global vars
-SET (MDAL_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/output CACHE PATH "Output base directory")
+SET (MDAL_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/output CACHE PATH "Output base directory")
 SET (ENABLE_TESTS TRUE CACHE BOOL "Build tests?")
 SET (ENABLE_COVERAGE FALSE CACHE BOOL "Enable GCOV code coverage?")
 SET (WITH_HDF5 TRUE CACHE BOOL "Build providers that require HDF5 (e.g. XMDF, XDMF)")
